@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+         <link rel="shortcut icon" href="favicon.ico">
+
+        <title>EXPRESS-PH Checker</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="/trial-lord/dist/css/plugins/preloader.css">
+        <link rel="stylesheet" href="/trial-lord/dist/css/plugins/iziToast.min.css">
+        <link rel="stylesheet" type="text/css" href="/trial-lord/dist/css/app.css">
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 200;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .top-right {
+                position: absolute;
+                right: 10px;
+                top: 18px;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 84px;
+            }
+
+            .links > a {
+                color: #636b6f;
+                padding: 0 25px;
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
+            .m-b-md {
+                margin-bottom: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+        	<div class="row">
+        		<div class="col-md-12 col-sm-12 text-center p-5">
+        			<h2>EXPRESS-PH Trial Checker</h2>
+        		</div>
+
+        		<div class="col-md-12 col-sm-12"> 
+    			    <div class="input-group mb-3">
+    			      <input id="link" type="text" class="form-control" placeholder="Enter Facebook profile link here...">
+    			      <div class="input-group-append">
+    			      	<button class="btn btn-outline-secondary" id="btnFind">Find</button>
+    			        <button class="btn btn-outline-secondary" id="btnAdd">Add</button>
+    			      </div>
+    			    </div> 
+        		</div>
+        	</div>
+
+        	<div class="card"  id="result" style="display: none;">
+        	  <div class="card-header">
+        	    <strong>We found your links.....</strong>
+        	  </div>
+        	  <div class="card-body">
+        	    <blockquote class="blockquote mb-0">
+        	      <p><a href="#" target="_blank" id="r_link">https://www.facebook.com/3vilsanta</a></p>
+        	      <footer class="blockquote-footer" id="r_date_and_count"> Created {date} 
+        	      	<cite title="Source Title">
+        	      		 <span class="badge badge-warning p-2">2x tried the trial!</span> 
+        	      	</cite>
+        	      </footer>
+        	    </blockquote>
+        	  </div>
+        	</div>
+
+        	<hr>
+
+        	<div class="row">
+        	    <div class="col-sm-12 col-md-12 col-lg-12  lists">
+        	        <div class="dataTables_wrapper">
+        	            <div class="row mb-1"> 
+        	                <div class="col-sm-12 col-md-12">
+        	                    <strong>Master List</strong>
+        	                    <div class="form-inline float-right">
+        	                        <div class="form-group">
+        	                            <label for="limit">Limit &nbsp;</label> 
+        	                            <select id="limit" class="custom-select custom-select-sm form-control form-control-sm">
+        	                                <option value="10">10</option>
+        	                                <option value="25">25</option>
+        	                                <option value="50">50</option>
+        	                                <option value="100">100</option>
+        	                            </select> 
+        	                        </div> 
+        	                    </div> 
+        	                </div> 
+        	            </div>
+        	            <table id="tbl_lists" class="table table-sm table-hover table-responsive-sm table-responsive-md">
+        	                <thead>
+        	                    <tr style="background-color:#1565c0; color:whitesmoke; padding:2px;">
+        	                    <th width="5%" class="text-center">#</th>
+        	                    <th width="10%">Date</th>
+        	                    <th width="10%">Time</th>
+        	                    <th width="65%">Facebook Link</th>
+        	                    <th width="10%" class="text-right pr-3">Trial Count</th> 
+        	                    </tr>
+        	                </thead>
+        	                <tbody id="list"> 
+        	                </tbody>
+        	            </table>
+        	            <div class="row">
+        	                <div class="col-sm-12 col-md-6">
+        	                    <div class="dataTables_length">
+        	                        page-<strong id="current_page">1</strong>
+        	                    </div>
+        	                </div>
+        	                <div class="col-sm-12 col-md-6">
+        	                    <nav aria-label="..." class="float-right">
+        	                        <ul class="pagination pagination-sm">
+        	                            <li class="page-item disabled"> 
+        	                                <button class="page-link" id="prev_page_url">Previous</button>
+        	                            </li> 
+        	                            <li class="page-item">
+        	                                <button class="page-link" id="next_page_url">Next</button> 
+        	                            </li>
+        	                        </ul>
+        	                    </nav> 
+        	                </div>
+        	            </div>
+        	        </div>  
+        	    </div>
+        	</div>
+        </div> 
+        <!-- js -->
+        <script src="/trial-lord/dist/js/app.js"></script> 
+        <script src="/trial-lord/dist/js/bootstrap.min.js"></script>
+        <script src="/trial-lord/dist/js/plugins/moment.js"></script>
+        <script src="/trial-lord/dist/js/plugins/jquery.preloader.min.js"></script>
+        <script src="/trial-lord/dist/js/plugins/iziToast.min.js"></script> 
+        <script src="/trial-lord/dist/js/settings.js"></script>
+        <script src="/trial-lord/dist/js/index.js"></script>
+    </body>
+</html>
