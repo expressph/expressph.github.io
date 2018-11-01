@@ -2,7 +2,7 @@ $(document).ready(function () {
 });
 
 //global variable for all page
-var api = 'http://97.74.228.64:9000';
+var api = 'https://expressph-api.yamahaclubph.com';
 var routes = {
     lists :     '/api/lists',
     store :     '/api/store',
