@@ -2,7 +2,7 @@ $(document).ready(function () {
 });
 
 //global variable for all page
-var api = 'http://localhost:8000';
+var api = 'http://97.74.228.64:9000';
 var routes = {
     lists :     '/api/lists',
     store :     '/api/store',
